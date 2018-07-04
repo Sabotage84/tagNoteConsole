@@ -10,6 +10,9 @@ namespace TagsNoteConsole
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Тестовый вариант программы заметок!");
+
+            Console.ReadKey();
         }
     }
 }
