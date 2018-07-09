@@ -24,11 +24,37 @@ namespace TagsNoteConsole
             lastModify = DateTime.Now;
         }
 
-        public Note(string title, List<string> tags)
+        public Note(string title, List<string> tags): this()
         {
             Title = title;
             Tags = tags;
         }
 
+        public override bool Equals(object obj)
+        {
+            Note _note = obj as Note;
+            if (_note == null)
+            {
+                Console.WriteLine("Преобразование прошло неудачно");
+            }
+            else
+            {
+                if (_note.Title == Title /*&& _note.CreateDate==CreateDate*/)
+                {
+                    return _note.tags.SequenceEqual(tags);
+                }
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -51452015;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(title);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<string>>.Default.GetHashCode(tags);
+            hashCode = hashCode * -1521134295 + createDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + lastModify.GetHashCode();
+            return hashCode;
+        }
     }
 }
