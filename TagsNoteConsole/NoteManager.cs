@@ -49,17 +49,33 @@ namespace TagsNoteConsole
             }
 
             return tempList;
-            //foreach (var item in tempList)
-            //{
-            //    Console.WriteLine(item.Title);
-            //    foreach (var tag in item.Tags)
-            //    {
-            //        Console.WriteLine("\t"+tag);
-            //    }
-            //}
-
         }
 
+        public List<Note> SearchByTagsOR(List<string> searchTags)
+        {
+            List<Note> tempList = new List<Note>();
+
+            foreach (var item in Notes)
+            {
+                IEnumerable<string> inter = item.Tags.Intersect(searchTags);
+                if (inter.Count() >= 1)
+                    tempList.Add(item);
+            }
+            return tempList;
+        }
+
+        public List<Note> SearchByTagsNOT(List<string> searchTags)
+        {
+            List<Note> tempList = new List<Note>();
+
+            foreach (var item in Notes)
+            {
+                IEnumerable<string> inter = item.Tags.Intersect(searchTags);
+                if (inter.Count() == 0)
+                    tempList.Add(item);
+            }
+            return tempList;
+        }
 
     }
 }

@@ -97,5 +97,29 @@ namespace UnitTestProject2
             Assert.AreEqual(4, list2.Count);
             Assert.AreEqual(4, list3.Count);
         }
+
+        [TestMethod]
+        public void TestSearchByTagsOR()
+        {
+            List<Note> list1 = testerManager.SearchByTagsOR(new List<string> { "not", "and" });
+            List<Note> list2 = testerManager.SearchByTagsOR(new List<string> { "xor", "or" });
+            List<Note> list3 = testerManager.SearchByTagsOR(new List<string> { "not", "xor" });
+
+            Assert.AreEqual(11, list1.Count);
+            Assert.AreEqual(11, list2.Count);
+            Assert.AreEqual(12, list3.Count);
+        }
+
+        [TestMethod]
+        public void TestSearchByTagsNOT()
+        {
+            List<Note> list1 = testerManager.SearchByTagsNOT(new List<string> { "not", "and" });
+            List<Note> list2 = testerManager.SearchByTagsNOT(new List<string> { "xor", "or" });
+            List<Note> list3 = testerManager.SearchByTagsNOT(new List<string> { "not", "xor" });
+
+            Assert.AreEqual(3, list1.Count);
+            Assert.AreEqual(3, list2.Count);
+            Assert.AreEqual(2, list3.Count);
+        }
     }
 }
