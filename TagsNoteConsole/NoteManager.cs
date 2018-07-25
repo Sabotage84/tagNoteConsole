@@ -77,5 +77,28 @@ namespace TagsNoteConsole
             return tempList;
         }
 
+        public List<Note> AdvanceSearch(List<string> listAnd=null, List<string> listOR=null, List<string> listNot=null)
+        {
+            List<Note> tempList = notes;
+            NoteManager nm = new NoteManager(tempList);
+            if (listAnd != null)
+            {
+                tempList = nm.SearchByTagsAND(listAnd);
+                nm = new NoteManager(tempList);
+            }
+            if (listOR!=null)
+            {
+                tempList = nm.SearchByTagsOR(listOR);
+                nm = new NoteManager(tempList);
+            }
+            if (listNot!=null)
+            {
+                tempList = nm.SearchByTagsNOT(listNot);
+               // nm = new NoteManager(tempList);
+            }
+            
+            return tempList;
+        }
+
     }
 }

@@ -24,11 +24,11 @@ namespace UnitTestProject2
             testerManager.AddNote("test6", new List<string> { "or", "xor" });
             testerManager.AddNote("test7", new List<string> { "xor" });
             testerManager.AddNote("test8", new List<string> { "not", "xor" });
-            testerManager.AddNote("test9", new List<string> { "not", "and",  "xor" });
+            testerManager.AddNote("test9", new List<string> { "not", "and", "xor" });
             testerManager.AddNote("test10", new List<string> { "not", "or", "xor" });
-            testerManager.AddNote("test11", new List<string> {  "and", "or" });
-            testerManager.AddNote("test12", new List<string> {  "and", "xor" });
-            testerManager.AddNote("test13", new List<string> { "not",  "or" });
+            testerManager.AddNote("test11", new List<string> { "and", "or" });
+            testerManager.AddNote("test12", new List<string> { "and", "xor" });
+            testerManager.AddNote("test13", new List<string> { "not", "or" });
             testerManager.AddNote("test14", new List<string> { });
         }
 
@@ -120,6 +120,23 @@ namespace UnitTestProject2
             Assert.AreEqual(3, list1.Count);
             Assert.AreEqual(3, list2.Count);
             Assert.AreEqual(2, list3.Count);
+        }
+
+        [TestMethod]
+        public void TestAdvancedSearch()
+        {
+            List <string> listAND = new List<string> { "not", "and" };
+            List<string> listOR = new List<string> { "xor", "and" };
+            List<string> listNOT = new List<string> { "or"};
+
+
+            List<Note> list1 = testerManager.AdvanceSearch(listAND,listOR,listNOT);
+            //List<Note> list2 = testerManager.SearchByTagsNOT(new List<string> { "xor", "or" });
+            //List<Note> list3 = testerManager.SearchByTagsNOT(new List<string> { "not", "xor" });
+
+            Assert.AreEqual(2, list1.Count);
+            //Assert.AreEqual(3, list2.Count);
+            //Assert.AreEqual(2, list3.Count);
         }
     }
 }
