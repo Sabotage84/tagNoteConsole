@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TagsNoteConsole
 {
+    [Serializable]
     public class Note
     {
         private string title;

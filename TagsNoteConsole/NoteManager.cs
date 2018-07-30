@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace TagsNoteConsole
 {
@@ -94,9 +96,43 @@ namespace TagsNoteConsole
             if (listNot!=null)
             {
                 tempList = nm.SearchByTagsNOT(listNot);
-               // nm = new NoteManager(tempList);
             }
-            
+            return tempList;
+        }
+
+        public bool SaveNotes(string fileName="notes.xml")
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Note>));
+            try
+            {
+                using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
+                {
+                    serializer.Serialize(fs, notes);
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                 return false;
+            }
+        }
+
+        public List<Note> LoadNotes(string fileName="notes.xml")
+        {
+            List<Note> tempList = new List<Note>();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Note>));
+            try
+            {
+                using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
+                    {
+                        tempList=(List<Note>)serializer.Deserialize(fs);
+                
+                    }
+            }
+            catch (Exception)
+            {
+                return tempList;
+            }
             return tempList;
         }
 

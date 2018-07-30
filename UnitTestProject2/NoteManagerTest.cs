@@ -131,12 +131,30 @@ namespace UnitTestProject2
 
 
             List<Note> list1 = testerManager.AdvanceSearch(listAND,listOR,listNOT);
-            //List<Note> list2 = testerManager.SearchByTagsNOT(new List<string> { "xor", "or" });
-            //List<Note> list3 = testerManager.SearchByTagsNOT(new List<string> { "not", "xor" });
-
+            
             Assert.AreEqual(2, list1.Count);
-            //Assert.AreEqual(3, list2.Count);
-            //Assert.AreEqual(2, list3.Count);
+        }
+
+        [TestMethod]
+        public void TestSaveANDLoadNotes()
+        {
+            bool test = testerManager.SaveNotes();
+            List<Note> tempList = testerManager.LoadNotes("notes.xml");
+
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                if (!tempList[i].Equals(testerManager.Notes[i]))
+                    test = false;
+            }
+            Assert.AreEqual(true, test);
+            
+        }
+
+        [TestMethod]
+        public void TestLoadNotes()
+        {
+            List<Note> tempList = testerManager.LoadNotes("notes2.xml");
+            Assert.AreEqual(0, tempList.Count);
         }
     }
 }
